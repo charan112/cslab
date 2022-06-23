@@ -1,26 +1,15 @@
 import numpy as np
 import pandas as pd
+import math
 import matplotlib.pyplot as plt
-data=pd.read_csv('Z:\Y20CS085\CSLAB\linearregressionnote.csv')
+data=pd.read_csv('Z:\Y20CS085\CSLAB\corelationcoeffnote.csv')
 print(data.head())
 x=np.array(data['x'])
 y=np.array(data['y'])
-mx=sum(x)/len(x)
-my=sum(y)/len(y)
-num=0.0
-for i in range(0,len(x)):
-    num=num+(x[i]-mx)*(y[i]-my)
-den=0.0
-for i in range(0,len(x)):
-    den=den+(x[i]-mx)*(x[i]-mx)
-b1=num/den
-b0=my-b1*mx
-plt.plot(x,b1*x+b0)
-print(b1)
-print(b0)
-plt.scatter(x, y, color = "m",marker = "o", s = 30)
-plt.title('regression line')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.grid(True)
-plt.show()
+xy=np.array(x*y)
+xx=np.array(x*x)
+yy=np.array(y*y)
+num=len(x)*sum(xy)-(sum(x)*sum(y))
+den=math.sqrt((len(x)*sum(xx)-(sum(x)*sum(x)))*(len(y)*sum(yy)-(sum(y)*sum(y))))
+r=num/den
+print("the corelation coeeficient is:",round(r*100,2))
