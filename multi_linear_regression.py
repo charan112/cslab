@@ -1,21 +1,19 @@
 import numpy as np
 import pandas as pd
-import math
 import matplotlib.pyplot as plt
-data=pd.read_csv('Z:\Y20CS085\CSLAB\mul_lin_regr.csv')
-print(data)
-x1=np.array(data['x1'])
-x2=np.array(data['x2'])
-x3=np.array(data['x3'])
-y=np.asmatrix(data['y'])
+import math
+x1=np.array(list(map(int,input().split())))
+x2=np.array(list(map(int,input().split())))
+y=np.asmatrix(list(map(int,input().split())))
 y=y.transpose()
-print(y)
 unitmat=[]
-for i in range(len(y)):
+for i in range(len(x1)):
     unitmat.append(1)
-x=np.column_stack((unitmat,x1,x2,x3))
+x=np.column_stack((unitmat,x1,x2))
 xt=x.transpose()
 xtx=np.dot(xt,x)
-xty=np.dot(xt,y)
 xtx_in=np.linalg.inv(xtx)
-print(np.dot(xtx_in,xty))
+xty=np.dot(xt,y)
+b_cap=np.dot(xtx_in,xty)
+print(*b_cap)
+print("the required multi linear regression equation is Y=",b_cap[0],"+",b_cap[1],"X1 +",b_cap[2],"X2")
